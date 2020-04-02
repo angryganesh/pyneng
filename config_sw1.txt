@@ -1,0 +1,46 @@
+
+!Command: show running-config
+!Time: Tue Jul 13 06:05:42 2010
+ 
+version 4.2(1)N2(1)
+feature fcoe
+feature telnet
+feature tacacs+
+feature udld
+feature interface-vlan
+feature lacp
+feature vpc
+feature lldp
+feature fex
+snmp-server enable traps entity fru
+role name default-role
+description This is a system defined role and applies to all users.
+rule 5 permit command feature environment
+rule 4 permit command feature hardware
+rule 3 permit command feature module
+rule 2 permit command feature snmp
+rule 1 permit command feature system
+role name praveena
+username admin password 5 $1$VrQsB2KX$4jkUcx3sXWU8lhI1mlwLa/ role network-admin
+username oregon password 5 $1$p3VJ0/BY$Kp22A08NeqCQ0asxUKXq91 role network-oper
+ator
+no password strength-check
+ip domain-lookup
+ip host switch 192.168.2.215
+ip host BEND-1 192.168.2.215
+tacacs-server host 192.168.2.54 key 7 "wawy1234"
+aaa group server tacacs+ t1
+server 192.168.2.54
+use-vrf management
+aaa group server tacacs+ tacacs
+radius-server host 192.168.2.5 key 7 "KkwyCet" authentication accounting
+aaa group server radius r1
+server 192.168.2.5
+use-vrf management
+hostname switch
+logging event link-status default
+errdisable recovery interval 30
+no errdisable detect cause link-flap
+errdisable recovery cause pause-rate-limit
+inter eth0
+duplex auto
